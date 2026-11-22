@@ -1,0 +1,16 @@
+:root[data-theme="pastel-dark"], [data-preview="pastel-dark"] {
+  --plane: #20151c; --card: #2a1b25; --card-hover: #33202d; --sunken: #181015;
+  --fg: #f3edf1; --fg-2: #d3c9d0; --muted: #9e929c; --rule: #3f2837; --rule-strong: #49404b;
+  --accent: #df8dbd; --accent-soft: rgba(223, 141, 189, .16); --accent-ink: #1c0d17;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 20px -8px rgba(0, 0, 0, .5);
+  --shadow-pop: 0 2px 6px rgba(0, 0, 0, .4), 0 20px 48px -12px rgba(0, 0, 0, .7);
+  --series-1: #e86ab4; --series-2: #9085e9; --series-3: #199e70; --series-4: #c98500;
+  --series-5: #3987e5; --series-6: #d95926; --series-7: #2a9a2a;
+  --track: #2e1e29; --est: #66425b;
+  --plane-glass: rgba(28, 24, 29, .84);
+  --glass: rgba(38, 27, 42, .68); --glass-edge: rgba(255, 255, 255, .12); --glass-sheen: rgba(255, 255, 255, .05);
+  --glass-fg: #f3edf1; --glass-muted: #aea2ac; --glass-accent: #df8dbd;
+  --r-s: 9px; --r-m: 14px; --r-l: 20px; --r-w: 14px;
+  --good: #34c98a; --warn: #f0b429; --bad: #f56565;
+  color-scheme: dark;
+}

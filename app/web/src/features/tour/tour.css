@@ -1,0 +1,18 @@
+/* Copyright 2026 The tokenwhy contributors <tokenwhy@dryaides.com>
+   SPDX-License-Identifier: Apache-2.0
+   Redistributions must keep the NOTICE file and credit tokenwhy. */
+
+/* Above the Settings drawer (40), under tooltips and the Sources dialog (50). */
+.tour-root { position: fixed; inset: 0; z-index: 45; }
+.tour-ring { position: fixed; border-radius: var(--r-m); box-shadow: 0 0 0 2px var(--accent), 0 0 0 100vmax rgb(0 0 0 / .35); pointer-events: none; transition: left .18s var(--ease), top .18s var(--ease), width .18s var(--ease), height .18s var(--ease); }
+.tour-card { position: fixed; width: min(340px, calc(100vw - 32px)); padding: var(--s5); border-radius: var(--r-m); box-shadow: var(--shadow-pop); color: var(--fg); opacity: 0; transform: translateY(4px); transition: opacity .16s var(--ease), transform .16s var(--ease); }
+.tour-card.in { opacity: 1; transform: none; }
+.tour-card h2 { margin: 0 0 var(--s2); font-size: var(--fs-m); font-weight: 600; }
+.tour-card p { margin: 0 0 var(--s4); font-size: var(--fs-s); line-height: 1.5; }
+.tour-foot { display: flex; align-items: center; gap: var(--s3); }
+.tour-skip { margin-right: auto; color: var(--muted); }
+.tour-count { color: var(--muted); font-size: var(--fs-xs); }
+/* Doubled class: the Soft and Bubbly sheets restyle every .icon-btn under :root[data-theme], which outranks one class. */
+:root .icon-btn.tour-next.tour-next { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+:root .icon-btn.tour-next.tour-next:hover { color: var(--accent-ink); border-color: var(--accent); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

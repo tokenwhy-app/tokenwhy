@@ -1,0 +1,13 @@
+{
+  "name": "@tokenwhy/themes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Theme token sets and the typed theme registry shared by tokenwhy and RichPresence+.",
+  "exports": {
+    "./registry": "./registry.ts",
+    "./tokens/*": "./tokens/*"
+  },
+  "files": ["registry.ts", "tokens", "LICENSE", "README.md"]
+}

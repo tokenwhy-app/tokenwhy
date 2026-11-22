@@ -1,0 +1,6 @@
+{
+  "session": [
+    { "sessionId": "s-1", "projectPath": "/home/u/app", "agent": "codex", "firstActivity": "2026-10-19T09:00:00", "lastActivity": "2026-10-19T11:30:00",
+      "inputTokens": 900, "outputTokens": 90, "cacheCreationTokens": 0, "cacheReadTokens": 9000, "totalCost": 0.9, "modelsUsed": ["gpt-5.4"] }
+  ]
+}

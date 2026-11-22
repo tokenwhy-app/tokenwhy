@@ -1,0 +1,16 @@
+:root[data-theme="pastel"], [data-preview="pastel"] {
+  --plane: #fbf1f7; --card: #ffffff; --card-hover: #fff7fb; --sunken: #f6e8f2;
+  --fg: #2e1f36; --fg-2: #56446a; --muted: #75618a; --rule: #f0dcea; --rule-strong: #e3c6dc;
+  --accent: #b03983; --accent-soft: #fbe3f1; --accent-ink: #ffffff;
+  --shadow: 0 1px 2px rgba(120, 60, 120, .06), 0 6px 18px -8px rgba(150, 80, 150, .18);
+  --shadow-pop: 0 2px 6px rgba(120, 60, 120, .08), 0 18px 40px -12px rgba(150, 80, 150, .3);
+  --series-1: #d0509c; --series-2: #8a6ee0; --series-3: #3ba7a0; --series-4: #e09a3c;
+  --series-5: #5c8fe0; --series-6: #c070d8; --series-7: #5aa05a;
+  --track: #f3e4ef; --est: #e7b6d6;
+  --plane-glass: rgba(251, 241, 247, .88);
+  --glass: rgba(253, 236, 246, .8); --glass-edge: rgba(255, 255, 255, .8); --glass-sheen: rgba(255, 255, 255, .45);
+  --glass-fg: #2e1f36; --glass-muted: #6e5884; --glass-accent: #a8337b;
+  --r-s: 9px; --r-m: 14px; --r-l: 20px; --r-w: 14px;
+  --good: #1f9d62; --warn: #c98a00; --bad: #d64545;
+  color-scheme: light;
+}

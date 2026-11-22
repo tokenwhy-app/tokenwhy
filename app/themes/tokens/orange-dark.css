@@ -1,0 +1,15 @@
+:root[data-theme="orange-dark"], [data-preview="orange-dark"] {
+  --plane: #18140f; --card: #201b15; --card-hover: #282119; --sunken: #120f0b;
+  --fg: #f1ece5; --fg-2: #cdc3b6; --muted: #988d80; --rule: #362d23; --rule-strong: #423b33;
+  --accent: #d89a5f; --accent-soft: rgba(216, 154, 95, .15); --accent-ink: #18100a;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 20px -8px rgba(0, 0, 0, .5);
+  --shadow-pop: 0 2px 6px rgba(0, 0, 0, .4), 0 20px 48px -12px rgba(0, 0, 0, .7);
+  --series-1: #e8832a; --series-2: #3987e5; --series-3: #199e70; --series-4: #c9a000;
+  --series-5: #d55181; --series-6: #9085e9; --series-7: #2a9a2a;
+  --track: #231d16; --est: #63492d;
+  --plane-glass: rgba(22, 20, 17, .84);
+  --glass: rgba(35, 27, 18, .68); --glass-edge: rgba(255, 255, 255, .12); --glass-sheen: rgba(255, 255, 255, .05);
+  --glass-fg: #f1ece5; --glass-muted: #a79c8e; --glass-accent: #d89a5f;
+  --good: #34c98a; --warn: #f0b429; --bad: #f56565;
+  color-scheme: dark;
+}

@@ -1,0 +1,4 @@
+{"type":"user","timestamp":"2026-10-21T09:00:00.000Z","uuid":"h1","cwd":"D:\\work\\demo","message":{"role":"user","content":"do it"},"origin":{"kind":"human"}}
+{"type":"assistant","timestamp":"2026-10-21T09:00:01.000Z","uuid":"u-mm101.000Z","cwd":"D:\\work\\demo","message":{"id":"mm1","model":"claude-opus-5","role":"assistant","content":[{"type":"tool_use","id":"tu1","name":"Bash","input":{"command":"cat a.txt"}}],"usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":400}}}
+{"type":"user","timestamp":"2026-10-21T09:00:02.000Z","uuid":"r1","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"tu1","content":"0123456789012345678901234"}]}}
+{"type":"api-request-blob","hash":"x","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"tu1","content":"0123456789012345678901234"}]}}

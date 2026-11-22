@@ -1,0 +1,32 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: app/web/package-lock.json
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: npm ci --prefix app/web
+      - run: cargo install tauri-cli --version 2.12.4 --locked
+      - run: cargo tauri build
+        working-directory: app
+      - run: cargo build --release -p tokenwhy
+      - uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            target/release/bundle/nsis/*-setup.exe
+            target/release/tokenwhy.exe

@@ -1,0 +1,26 @@
+/* Copyright 2026 The tokenwhy contributors <tokenwhy@dryaides.com>
+   SPDX-License-Identifier: Apache-2.0
+   Redistributions must keep the NOTICE file and credit tokenwhy. */
+
+:root[data-family="clay"] {
+  & .tabs button[aria-selected="true"] { background: var(--accent-soft); box-shadow: var(--shadow-s); }
+  & .tabs button[aria-selected="true"]::after { display: none; }
+  & .tabs button:hover:not([aria-selected="true"]) { background: var(--card); }
+  & .select, & .icon-btn { background: var(--card); }
+  & .icon-btn[aria-expanded="true"] { background: var(--accent-soft); }
+  & .switch::after { box-shadow: none; }
+  & .switch:checked::after { box-shadow: 0 2px 4px rgba(40, 10, 100, .35), inset 0 -2px 3px rgba(98, 54, 196, .18); }
+  & .cause { background: color-mix(in oklch, var(--c) 9%, var(--card)); }
+  & .cause .findings li:hover { background: color-mix(in oklch, var(--c) 6%, var(--card)); }
+  & .kpis { background: none; box-shadow: none; overflow: visible; gap: var(--s3); }
+  & .kpi { padding-left: var(--s5); padding-right: var(--s4); }
+  & .kpi, & .kpi:first-child { border: 0; margin: 0; box-shadow: var(--shadow); background: var(--card); border-radius: var(--r-l); }
+  & .kpi:first-child { background: color-mix(in oklch, var(--accent) 8%, var(--card)); }
+  & .f-detail { background: color-mix(in oklch, var(--accent) 5%, var(--sunken)); }
+  & .drawer { background: var(--card); }
+}
+
+:root[data-family="clay"] #compact {
+  background: var(--card); border-color: transparent;
+  box-shadow: inset 0 3px 6px #ffffff, inset 0 -6px 14px rgba(124, 92, 196, .2);
+}

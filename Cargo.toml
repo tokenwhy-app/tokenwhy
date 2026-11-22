@@ -1,0 +1,31 @@
+[workspace]
+resolver = "2"
+# "app" stays out of default-members so plain `cargo build` never compiles Tauri; only the app turns on
+# tokenwhy-share/net, so the CLI build links no HTTP client.
+members = ["crates/core", "crates/co2-data", "crates/cli", "crates/wrapped", "crates/card", "crates/mcp", "crates/share", "app"]
+default-members = ["crates/core", "crates/co2-data", "crates/cli", "crates/wrapped", "crates/card", "crates/mcp"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+memchr = "2"
+chrono = { version = "0.4", default-features = false, features = ["std", "clock"] }
+postcard = { version = "1", default-features = false, features = ["alloc"] }
+notify = "8"
+lexopt = "0.3"
+tokenwhy-core = { path = "crates/core" }
+tokenwhy-wrapped = { path = "crates/wrapped" }
+tokenwhy-card = { path = "crates/card" }
+tokenwhy-mcp = { path = "crates/mcp" }
+tokenwhy-share = { path = "crates/share" }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
+opt-level = 3

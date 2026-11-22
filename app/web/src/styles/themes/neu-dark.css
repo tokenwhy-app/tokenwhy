@@ -1,0 +1,6 @@
+/* Copyright 2026 The tokenwhy contributors <tokenwhy@dryaides.com>
+   SPDX-License-Identifier: Apache-2.0
+   Redistributions must keep the NOTICE file and credit tokenwhy. */
+
+:root[data-theme="neu-dark"] .chart .c-tmlbl { fill: #ffffff; }
+:root[data-theme="neu-dark"] .chart .c-tmval { fill: #ffffff; }

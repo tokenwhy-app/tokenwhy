@@ -1,0 +1,25 @@
+:root[data-theme="clay-dark"], [data-preview="clay-dark"] {
+  --plane: #1e1830; --card: #2a2240; --card-hover: #31284a; --sunken: #19132a;
+  --fg: #f1ebff; --fg-2: #d2c8ee; --muted: #a69bc6; --rule: #3a3156; --rule-strong: #8a7cb0;
+  --accent: #a98bff; --accent-soft: #3a2f63; --accent-ink: #160b33;
+  --neu-hi: rgba(255, 255, 255, .07); --neu-lo: rgba(0, 0, 0, .45);
+  --shadow: 0 18px 34px -14px rgba(0, 0, 0, .6), 0 4px 10px -4px rgba(0, 0, 0, .3),
+    inset 0 -7px 16px rgba(0, 0, 0, .22), inset 0 6px 12px var(--neu-hi);
+  --shadow-pop: 0 26px 48px -16px rgba(0, 0, 0, .7), 0 6px 14px -6px rgba(0, 0, 0, .35),
+    inset 0 -7px 16px rgba(0, 0, 0, .22), inset 0 6px 12px var(--neu-hi);
+  --shadow-s: 0 6px 14px -6px rgba(0, 0, 0, .55), inset 0 -3px 6px rgba(0, 0, 0, .22), inset 0 2px 4px var(--neu-hi);
+  --neu-in: inset 0 3px 8px rgba(0, 0, 0, .4), inset 0 -2px 4px var(--neu-hi);
+  --neu-in-s: inset 0 1px 3px rgba(0, 0, 0, .5);
+  --press: 0 6px 14px -5px rgba(169, 139, 255, .45), inset 0 -3px 6px rgba(20, 0, 60, .35), inset 0 2px 3px rgba(255, 255, 255, .25);
+  --scrim: rgba(8, 4, 20, .5);
+  --tile-base: #1e1830; --tile-k: 74%;
+  --series-1: #a98bff; --series-2: #f08a5d; --series-3: #43c99b; --series-4: #e2b53e;
+  --series-5: #ef8fb6; --series-6: #7fb0ff; --series-7: #8fcf5a;
+  --track: #261f3a; --est: #5a4a8e;
+  --plane-glass: #1e1830;
+  --glass: #2a2240; --glass-edge: transparent; --glass-sheen: rgba(255, 255, 255, 0);
+  --glass-fg: #f1ebff; --glass-muted: #a69bc6; --glass-accent: #a98bff;
+  --r-s: 12px; --r-m: 18px; --r-l: 28px; --r-w: 20px; --r-ctl: 999px;
+  --good: #34c98a; --warn: #f0b429; --bad: #f56565;
+  color-scheme: dark;
+}

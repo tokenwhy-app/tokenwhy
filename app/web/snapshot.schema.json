@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tokenwhy/snapshot/2",
+  "title": "tokenwhy Snapshot v2 (mirror of core/src/model.rs Snapshot)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "generated_ms", "window", "anonymised", "progress", "live", "findings", "startup", "skills",
+    "memory", "subagents", "compactions", "tools", "unpriced_models"],
+  "properties": {
+    "schema": { "const": 2 },
+    "generated_ms": { "type": "integer" },
+    "window": { "$ref": "#/$defs/window" },
+    "anonymised": { "type": "boolean" },
+    "progress": { "type": "number", "minimum": 0, "maximum": 1 },
+    "providers": { "type": "array", "items": { "$ref": "#/$defs/providerInfo" } },
+    "accounts": { "type": "array", "items": { "$ref": "#/$defs/accountInfo" } },
+    "plan": {
+      "description": "Claude subscription limits used per account, from Claude Code's last cached /usage reading; absent without the plan feature or a reading",
+      "type": "array", "items": { "$ref": "#/$defs/planRow" }
+    },
+    "co2": {
+      "description": "CO2 method behind every co2 figure; absent without the co2 feature",
+      "type": "object", "additionalProperties": false,
+      "required": ["method", "grid_g_per_kwh", "grid_is_default", "cache_read_factor", "data_date", "water", "water_units"],
+      "properties": {
+        "method": { "enum": ["ecologits", "jegham"] },
+        "grid_g_per_kwh": { "type": "number", "minimum": 0 },
+        "grid_is_default": { "type": "boolean" },
+        "cache_read_factor": { "type": ["number", "null"], "minimum": 0, "description": "null for EcoLogits, which ignores input and cache tokens" },
+        "data_date": { "type": "string" },
+        "water": { "type": "boolean", "description": "whether the method estimates water" },
+        "water_units": {
+          "type": "array", "description": "household volumes for the water equivalent, largest first",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["litres", "one", "many", "source", "url", "read"],
+            "properties": { "litres": { "type": "number" }, "one": { "type": "string" }, "many": { "type": "string" },
+              "source": { "type": "string" }, "url": { "type": "string" }, "read": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "live": {
+      "type": "object", "additionalProperties": false, "required": ["today", "sessions"],
+      "properties": {
+        "today": {
+          "type": "object", "additionalProperties": false,
+          "required": ["fresh_tokens", "cache_read_tokens", "cost_usd", "sessions", "agents"],
+          "properties": {
+            "fresh_tokens": { "$ref": "#/$defs/count" },
+            "cache_read_tokens": { "$ref": "#/$defs/count" },
+            "cost_usd": { "$ref": "#/$defs/amount" },
+            "sessions": { "$ref": "#/$defs/count" },
+            "agents": { "$ref": "#/$defs/count" }
+          }
+        },
+        "sessions": { "type": "array", "items": { "$ref": "#/$defs/activeSession" } }
+      }
+    },
+    "findings": { "type": "array", "items": { "$ref": "#/$defs/finding" } },
+    "startup": { "type": "array", "items": { "$ref": "#/$defs/startupRow" } },
+    "skills": { "type": "array", "items": { "$ref": "#/$defs/skillRow" } },
+    "memory": { "type": "array", "items": { "$ref": "#/$defs/memoryRow" } },
+    "subagents": { "type": "array", "items": { "$ref": "#/$defs/subagentRow" } },
+    "compactions": { "type": "array", "items": { "$ref": "#/$defs/compactionRow" } },
+    "tools": { "type": "array", "items": { "$ref": "#/$defs/toolRow" } },
+    "unpriced_models": { "type": "array", "items": { "type": "string" } },
+    "weeks": { "type": "number", "minimum": 0 },
+    "history_newer": { "type": "integer", "minimum": 0 },
+    "daily": { "type": "array", "items": { "$ref": "#/$defs/dailyRow" } },
+    "week": {
+      "oneOf": [{ "type": "null" }, {
+        "type": "object", "additionalProperties": false,
+        "required": ["fresh_tokens", "cache_read_tokens", "cost_usd", "sessions", "agents"],
+        "properties": {
+          "fresh_tokens": { "$ref": "#/$defs/weekDelta" }, "cache_read_tokens": { "$ref": "#/$defs/weekDelta" },
+          "cost_usd": { "$ref": "#/$defs/weekDelta" }, "sessions": { "$ref": "#/$defs/weekDelta" },
+          "agents": { "$ref": "#/$defs/weekDelta" },
+          "agent_cost_usd": { "$ref": "#/$defs/weekDelta", "description": "cost of subagent files" },
+          "output_tokens": { "$ref": "#/$defs/optWeekDelta", "description": "main threads only" },
+          "edits": { "$ref": "#/$defs/optWeekDelta", "description": "successful edit-category tool calls, main threads only" },
+          "active_hours": { "$ref": "#/$defs/optWeekDelta", "description": "local hours with priced main-thread turns" },
+          "co2_g": { "$ref": "#/$defs/optWeekDelta", "description": "estimated grams CO2e, low end of the method's range" },
+          "co2_g_max": { "$ref": "#/$defs/optWeekDelta", "description": "high end of the range" },
+          "co2_cache_g": { "$ref": "#/$defs/optWeekDelta", "description": "middle of the range spent on cache reads" },
+          "water_l": { "$ref": "#/$defs/optWeekDelta", "description": "litres of water, low end (EcoLogits only)" },
+          "water_l_max": { "$ref": "#/$defs/optWeekDelta", "description": "litres of water, high end" }
+        }
+      }]
+    },
+    "sessions": { "type": "array", "maxItems": 300, "items": { "$ref": "#/$defs/sessionRow" } },
+    "hourly": { "type": "array", "items": { "$ref": "#/$defs/hourRow" } }
+  },
+  "$defs": {
+    "level": { "enum": ["full", "partial", "none"] },
+    "accountInfo": {
+      "type": "object", "additionalProperties": false, "required": ["id", "label", "sessions"],
+      "properties": { "id": { "type": "string" }, "label": { "type": "string" }, "sessions": { "type": "integer", "minimum": 0 } }
+    },
+    "planRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["account", "label", "five_hour_pct", "five_hour_resets_ms", "seven_day_pct", "seven_day_resets_ms", "fetched_ms"],
+      "properties": {
+        "account": { "type": "string", "description": "account id, as in accounts" }, "label": { "type": "string" },
+        "five_hour_pct": { "type": ["number", "null"], "minimum": 0, "description": "percent of the 5-hour limit used" },
+        "five_hour_resets_ms": { "type": ["integer", "null"] },
+        "seven_day_pct": { "type": ["number", "null"], "minimum": 0, "description": "percent of the weekly limit used" },
+        "seven_day_resets_ms": { "type": ["integer", "null"] },
+        "fetched_ms": { "type": "integer", "description": "when Claude Code read /usage" }
+      }
+    },
+    "providerInfo": {
+      "type": "object", "additionalProperties": false, "required": ["id", "label", "roots", "files", "caps"],
+      "properties": {
+        "id": { "type": "string" }, "label": { "type": "string" }, "roots": { "$ref": "#/$defs/count" },
+        "files": { "$ref": "#/$defs/count" }, "imported": { "type": "boolean" },
+        "caps": {
+          "type": "object", "additionalProperties": false,
+          "required": ["turns", "cache_read", "cache_write", "tool_outputs", "skills", "startup", "memory", "subagents",
+            "compactions", "mcp", "cost"],
+          "properties": {
+            "turns": { "$ref": "#/$defs/level" }, "cache_read": { "$ref": "#/$defs/level" },
+            "cache_write": { "$ref": "#/$defs/level" }, "tool_outputs": { "$ref": "#/$defs/level" },
+            "skills": { "$ref": "#/$defs/level" }, "startup": { "$ref": "#/$defs/level" },
+            "memory": { "$ref": "#/$defs/level" }, "subagents": { "$ref": "#/$defs/level" },
+            "compactions": { "$ref": "#/$defs/level" }, "mcp": { "$ref": "#/$defs/level" },
+            "cost": { "enum": ["table", "stored", "estimate"] }
+          }
+        },
+        "skipped": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["reason", "count"],
+            "properties": { "reason": { "type": "string" }, "count": { "$ref": "#/$defs/count" } }
+          }
+        }
+      }
+    },
+    "count": { "type": "integer", "minimum": 0 },
+    "share": { "type": "number", "minimum": 0, "maximum": 1 },
+    "optString": { "type": ["string", "null"] },
+    "window": {
+      "type": "object", "additionalProperties": false, "required": ["from_ms", "to_ms"],
+      "properties": { "from_ms": { "type": "integer" }, "to_ms": { "type": "integer" } }
+    },
+    "amount": {
+      "description": "value null = unknown (n/a); est true = chars / 4 estimate",
+      "type": "object", "additionalProperties": false, "required": ["value"],
+      "properties": { "value": { "type": ["number", "null"] }, "est": { "type": "boolean" } }
+    },
+    "category": {
+      "enum": ["read-file", "search", "list", "vcs", "build", "test", "logs", "script", "project-tool", "web",
+        "agent", "mcp", "edit", "other"]
+    },
+    "startupKind": {
+      "enum": ["system-prompt", "builtin-tools", "mcp-tools", "deferred-tools", "skill-listing", "agent-listing",
+        "mcp-instructions", "user-instructions", "project-instructions", "memory", "base"]
+    },
+    "activeSession": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "project", "session", "ctx_tokens", "turns", "cost_usd", "agents_running", "compactions",
+        "ctx_growth_since_boundary"],
+      "properties": {
+        "provider": { "type": "string" }, "project": { "type": "string" }, "session": { "type": "string" },
+        "ctx_tokens": { "$ref": "#/$defs/count" }, "turns": { "$ref": "#/$defs/count" },
+        "cost_usd": { "$ref": "#/$defs/amount" }, "agents_running": { "$ref": "#/$defs/count" },
+        "compactions": { "$ref": "#/$defs/count" }, "ctx_growth_since_boundary": { "$ref": "#/$defs/count" }
+      }
+    },
+    "finding": {
+      "type": "object", "additionalProperties": false, "required": ["rule", "project", "line", "tokens_saved_per_week"],
+      "properties": {
+        "provider": { "type": "string", "description": "absent when the row spans every provider" },
+        "rule": { "type": "string", "pattern": "^R[0-9]+$" },
+        "project": { "$ref": "#/$defs/optString" },
+        "line": { "type": "string", "maxLength": 110, "not": { "pattern": "!" } },
+        "tokens_saved_per_week": { "$ref": "#/$defs/amount" },
+        "usd_saved_per_week": { "$ref": "#/$defs/amount" },
+        "co2_g_saved_per_week": { "$ref": "#/$defs/amount", "description": "estimated grams CO2e, an order of magnitude" },
+        "usd_saved_last_7d": { "$ref": "#/$defs/amount", "description": "same rule, project and provider over the last 7 days, per week; absent when the window is 7 days or less" }
+      }
+    },
+    "sessionRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "project", "session", "start_ms", "turns", "mean_ctx", "peak_ctx", "cost_usd", "compactions"],
+      "properties": {
+        "provider": { "type": "string" }, "project": { "type": "string" }, "session": { "type": "string" },
+        "start_ms": { "type": "integer" }, "turns": { "$ref": "#/$defs/count" }, "mean_ctx": { "type": "number", "minimum": 0 },
+        "peak_ctx": { "$ref": "#/$defs/count" }, "cost_usd": { "$ref": "#/$defs/amount" }, "compactions": { "$ref": "#/$defs/count" },
+        "co2_g": { "$ref": "#/$defs/amount", "description": "estimated grams CO2e, an order of magnitude" }
+      }
+    },
+    "optCount": { "description": "main threads only; null for days stored before it was recorded", "type": ["integer", "null"], "minimum": 0 },
+    "hourRow": {
+      "type": "object", "additionalProperties": false, "required": ["day_ms", "hour", "cost_usd"],
+      "properties": {
+        "provider": { "type": "string", "description": "absent when the row spans every provider" },
+        "day_ms": { "type": "integer" }, "hour": { "type": "integer", "minimum": 0, "maximum": 23 },
+        "cost_usd": { "type": "number", "minimum": 0 }
+      }
+    },
+    "startupRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "project", "sessions", "median", "p90", "min", "max", "ratio", "parts", "unattributed"],
+      "properties": {
+        "provider": { "type": "string" }, "project": { "type": "string" }, "sessions": { "$ref": "#/$defs/count" },
+        "median": { "$ref": "#/$defs/count" }, "p90": { "$ref": "#/$defs/count" },
+        "min": { "$ref": "#/$defs/count" }, "max": { "$ref": "#/$defs/count" },
+        "ratio": { "type": ["number", "null"] },
+        "parts": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["kind", "name", "tokens"],
+            "properties": {
+              "kind": { "$ref": "#/$defs/startupKind" }, "name": { "type": "string" },
+              "tokens": { "$ref": "#/$defs/amount" }
+            }
+          }
+        },
+        "unattributed": { "$ref": "#/$defs/amount" }
+      }
+    },
+    "skillRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["skill", "listing_tokens_median", "activations", "body_tokens_median", "carried_cost_usd",
+        "sessions_loaded", "sessions_listed", "attributed_turns", "attributed_cost_usd"],
+      "properties": {
+        "provider": { "type": "string", "description": "absent when the row spans every provider" },
+        "skill": { "type": "string" }, "listing_tokens_median": { "$ref": "#/$defs/amount" },
+        "activations": { "$ref": "#/$defs/count" }, "body_tokens_median": { "$ref": "#/$defs/amount" },
+        "carried_cost_usd": { "$ref": "#/$defs/amount" }, "sessions_loaded": { "$ref": "#/$defs/count" },
+        "sessions_listed": { "$ref": "#/$defs/count" }, "attributed_turns": { "$ref": "#/$defs/count" },
+        "attributed_cost_usd": { "$ref": "#/$defs/amount" }
+      }
+    },
+    "memoryRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "path", "bytes", "tokens", "carried_cost_usd", "on_demand_reads", "duplicate_lines"],
+      "properties": {
+        "provider": { "type": "string", "description": "absent when the row spans every provider" },
+        "kind": { "$ref": "#/$defs/startupKind" }, "path": { "type": "string" }, "label": { "type": "string" }, "bytes": { "$ref": "#/$defs/count" },
+        "tokens": { "$ref": "#/$defs/amount" }, "carried_cost_usd": { "$ref": "#/$defs/amount" },
+        "on_demand_reads": { "$ref": "#/$defs/count" }, "duplicate_lines": { "$ref": "#/$defs/count" }
+      }
+    },
+    "subagentRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "project", "agent_type", "model", "agents", "cost_usd", "median_cost_usd", "cost_share",
+        "fresh_share", "startup_share"],
+      "properties": {
+        "provider": { "type": "string" }, "project": { "type": "string" },
+        "agent_type": { "$ref": "#/$defs/optString" }, "model": { "$ref": "#/$defs/optString" },
+        "agents": { "$ref": "#/$defs/count" }, "cost_usd": { "$ref": "#/$defs/amount" },
+        "median_cost_usd": { "$ref": "#/$defs/amount" }, "cost_share": { "$ref": "#/$defs/share" },
+        "fresh_share": { "$ref": "#/$defs/share" }, "startup_share": { "$ref": "#/$defs/share" }
+      }
+    },
+    "compactionRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "project", "session", "ts_ms", "pre_tokens", "post_tokens", "first_after_ctx",
+        "cost_per_turn_before", "cost_per_turn_after", "rebuild_tokens", "carry_ratio", "fresh_restart_cost_usd"],
+      "properties": {
+        "provider": { "type": "string" }, "project": { "type": "string" }, "session": { "type": "string" },
+        "ts_ms": { "type": "integer" }, "pre_tokens": { "$ref": "#/$defs/count" },
+        "post_tokens": { "$ref": "#/$defs/count" }, "first_after_ctx": { "$ref": "#/$defs/count" },
+        "cost_per_turn_before": { "$ref": "#/$defs/amount" }, "cost_per_turn_after": { "$ref": "#/$defs/amount" },
+        "rebuild_tokens": { "$ref": "#/$defs/amount" }, "carry_ratio": { "type": ["number", "null"] },
+        "fresh_restart_cost_usd": { "$ref": "#/$defs/amount" }
+      }
+    },
+    "dailyRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["day_ms", "project", "fresh_tokens", "cache_read_tokens", "cache_write_tokens", "cost_usd", "sessions",
+        "agents", "compactions"],
+      "properties": {
+        "provider": { "type": "string", "description": "absent when the row spans every provider" },
+        "day_ms": { "type": "integer" }, "project": { "$ref": "#/$defs/optString" }, "model": { "$ref": "#/$defs/optString" },
+        "fresh_tokens": { "$ref": "#/$defs/count" }, "cache_read_tokens": { "$ref": "#/$defs/count" },
+        "cache_write_tokens": { "$ref": "#/$defs/count" }, "cost_usd": { "$ref": "#/$defs/amount" },
+        "sessions": { "$ref": "#/$defs/count" }, "agents": { "$ref": "#/$defs/count" }, "compactions": { "$ref": "#/$defs/count" },
+        "output_tokens": { "$ref": "#/$defs/optCount" }, "edits": { "$ref": "#/$defs/optCount" },
+        "active_hours": { "$ref": "#/$defs/optCount" }, "agent_cost_usd": { "type": "number", "minimum": 0 },
+        "co2_g": { "type": ["number", "null"], "minimum": 0, "description": "estimated grams CO2e, low end of the range; null for days stored before output tokens were recorded or without the co2 feature" },
+        "co2_g_max": { "type": ["number", "null"], "minimum": 0, "description": "high end of the range" },
+        "co2_cache_g": { "type": ["number", "null"], "minimum": 0, "description": "middle of the range spent on cache reads" },
+        "water_l": { "type": ["number", "null"], "minimum": 0, "description": "litres of water, low end; null for a method without water" },
+        "water_l_max": { "type": ["number", "null"], "minimum": 0, "description": "litres of water, high end" }
+      }
+    },
+    "weekDelta": {
+      "description": "this = last 7 days, last = the 7 before; delta_pct in percent, null when last is 0",
+      "type": "object", "additionalProperties": false, "required": ["this", "last", "delta_pct"],
+      "properties": { "this": { "type": "number" }, "last": { "type": "number" }, "delta_pct": { "type": ["number", "null"] } }
+    },
+    "optWeekDelta": {
+      "description": "null when either week holds days stored before the figure was recorded",
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/weekDelta" }]
+    },
+    "toolRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["category", "detail", "project", "calls", "first_tokens", "carried_tokens", "share", "median_chars",
+        "p95_chars", "over_25k", "persisted"],
+      "properties": {
+        "provider": { "type": "string", "description": "absent when the row spans every provider" },
+        "category": { "$ref": "#/$defs/category" }, "detail": { "$ref": "#/$defs/optString" },
+        "project": { "$ref": "#/$defs/optString" }, "calls": { "$ref": "#/$defs/count" },
+        "first_tokens": { "$ref": "#/$defs/amount" }, "carried_tokens": { "$ref": "#/$defs/amount" },
+        "share": { "$ref": "#/$defs/share" }, "median_chars": { "$ref": "#/$defs/count" },
+        "p95_chars": { "$ref": "#/$defs/count" }, "over_25k": { "$ref": "#/$defs/count" },
+        "persisted": { "$ref": "#/$defs/count" }
+      }
+    }
+  }
+}

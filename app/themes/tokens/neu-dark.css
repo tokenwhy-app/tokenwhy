@@ -1,0 +1,23 @@
+:root[data-theme="neu-dark"], [data-preview="neu-dark"] {
+  --plane: #272b33; --card: #272b33; --card-hover: #2c313a; --sunken: #22262d;
+  --fg: #eceff4; --fg-2: #cfd5de; --muted: #a8b1be; --rule: #333944; --rule-strong: #7d8796;
+  --accent: #7fb0ff; --accent-soft: #2e3f5c; --accent-ink: #0f1622;
+  --neu-hi: #353b47; --neu-lo: #15171c;
+  --shadow: 8px 8px 18px var(--neu-lo), -7px -7px 16px var(--neu-hi);
+  --shadow-pop: 14px 14px 32px #101216, -8px -8px 22px var(--neu-hi);
+  --shadow-s: 3px 3px 7px var(--neu-lo), -2px -2px 6px var(--neu-hi);
+  --neu-in: inset 3px 3px 7px var(--neu-lo), inset -3px -3px 7px var(--neu-hi);
+  --neu-in-s: inset 1px 1px 2px #121418, inset -1px -1px 1px #3a404c;
+  --press: 2px 2px 6px var(--neu-lo), -2px -2px 5px var(--neu-hi);
+  --scrim: rgba(8, 10, 14, .5);
+  --tile-base: #272b33; --tile-k: 74%;
+  --series-1: #7fb0ff; --series-2: #f08a5d; --series-3: #43c99b; --series-4: #e2b53e;
+  --series-5: #ef8fb6; --series-6: #a89cf5; --series-7: #8fcf5a;
+  --track: #23272e; --est: #4f6f9e;
+  --plane-glass: #272b33;
+  --glass: #272b33; --glass-edge: transparent; --glass-sheen: rgba(255, 255, 255, 0);
+  --glass-fg: #eceff4; --glass-muted: #a8b1be; --glass-accent: #7fb0ff;
+  --r-s: 10px; --r-m: 14px; --r-l: 22px; --r-w: 14px; --r-ctl: 12px;
+  --good: #34c98a; --warn: #f0b429; --bad: #f56565;
+  color-scheme: dark;
+}

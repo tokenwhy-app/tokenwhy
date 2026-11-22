@@ -1,0 +1,74 @@
+/* Copyright 2026 The tokenwhy contributors <tokenwhy@dryaides.com>
+   SPDX-License-Identifier: Apache-2.0
+   Redistributions must keep the NOTICE file and credit tokenwhy. */
+
+/* Contrast: text >= 4.5:1 and marks >= 3:1 on the plane; a selected state always carries an accent fill or bar,
+   never a shadow alone. */
+
+:root:is([data-theme="neu"], [data-theme="neu-dark"], [data-family="clay"]) {
+  & .top { backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom-color: transparent; box-shadow: 0 10px 18px -14px var(--neu-lo); }
+  & .panel, & .card, & .kpis { border-color: transparent; }
+  & .card:hover { border-color: transparent; }
+  & .card-foot, & .cause-foot { border-top-color: var(--rule); }
+
+  & .tabs { padding-top: var(--s2); padding-bottom: var(--s3); gap: var(--s2); }
+  & .tabs button { border-radius: var(--r-ctl); padding: 7px var(--s4) 9px; color: var(--muted); transition: color .2s var(--ease), box-shadow .2s var(--ease); }
+  & .tabs button:hover { color: var(--fg); box-shadow: var(--shadow-s); }
+  & .tabs button[aria-selected="true"] { color: var(--accent); background: var(--sunken); box-shadow: var(--neu-in); }
+  & .tabs button[aria-selected="true"]::after { bottom: 4px; height: 2px; left: 40%; right: 40%; }
+  & .tabs button:focus-visible { outline-offset: 2px; }
+
+  & .seg { background: var(--sunken); border-color: transparent; box-shadow: var(--neu-in); }
+  & .seg button { color: var(--muted); }
+  & .seg button:hover { color: var(--fg); }
+  & .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); box-shadow: var(--press); font-weight: 600; }
+  & .select, & .icon-btn { background: var(--card); border-color: transparent; box-shadow: var(--shadow-s); }
+  & .select:hover, & .icon-btn:hover { border-color: transparent; color: var(--accent); }
+  & .icon-btn:hover svg { color: var(--accent); }
+  & .select:active, & .icon-btn:active { background: var(--sunken); box-shadow: var(--neu-in); }
+  & .icon-btn[aria-expanded="true"] { background: var(--sunken); color: var(--accent); border-color: transparent; box-shadow: var(--neu-in); }
+  & .icon-btn[aria-expanded="true"] svg { color: var(--accent); }
+  & .sel-wrap::after { border-color: var(--fg-2); }
+
+  & .switch { width: 38px; height: 22px; background: var(--sunken); box-shadow: var(--neu-in-s), var(--neu-in); }
+  & .switch::after { top: 3px; left: 3px; width: 16px; height: 16px; background: var(--muted); box-shadow: none; transform: scale(.75); transition: transform .25s var(--ease), background .25s var(--ease); }
+  & .switch:checked { background: var(--accent); box-shadow: var(--neu-in-s); }
+  & .switch:checked::after { background: #fff; transform: translateX(16px); box-shadow: 1px 1px 3px rgba(0, 0, 0, .3); }
+  & .switch:focus-visible { outline-offset: 3px; }
+
+  & :focus-visible { outline-width: 2px; }
+  & ::selection { background: var(--accent); color: var(--accent-ink); }
+
+  & .f-detail, & .empty { background: var(--sunken); box-shadow: var(--neu-in); }
+  & .summary-row { background: var(--sunken); box-shadow: var(--neu-in-s); }
+  & .summary-row:hover { color: var(--accent); }
+  & .cbar, & .f-meter, & .scan-bar { background: var(--track); box-shadow: var(--neu-in-s); }
+  & .findings li { border-radius: var(--r-m); }
+  & .findings li + li { border-top-color: var(--rule); }
+  & .kind { border-radius: var(--r-s); }
+  & .kind.on { box-shadow: var(--neu-in-s); }
+
+  & .kpi { border-left-color: var(--rule); box-shadow: inset 1px 0 0 var(--neu-hi); }
+  & .kpi:first-child { box-shadow: none; }
+
+  & .tip { background: var(--card); color: var(--fg); border-radius: var(--r-m); box-shadow: var(--shadow-pop); padding: var(--s3) var(--s4); }
+  & .tip span { opacity: 1; color: var(--fg-2); }
+
+  & .scrim { background: var(--scrim); }
+  & .drawer { border-left: 0; border-radius: var(--r-l) 0 0 var(--r-l); box-shadow: -8px 0 28px rgba(0, 0, 0, .12); }
+
+  & .chart .c-tile { fill: color-mix(in oklch, var(--c) calc(var(--op) * var(--tile-k)), var(--tile-base)) !important; fill-opacity: 1 !important; stroke: var(--card); }
+  & .chart .c-tmval { fill: var(--fg); }
+  & .chart .c-blockbg { fill: color-mix(in oklch, var(--c) 12%, var(--tile-base)) !important; fill-opacity: 1; }
+  & .chart .c-mark:hover .c-tile { fill-opacity: 1 !important; filter: brightness(1.06) saturate(1.1); }
+  & .chart .c-cell { fill: color-mix(in oklch, var(--series-1) calc(var(--op) * 100%), var(--tile-base)) !important; fill-opacity: 1 !important; }
+  & .chart .tail .c-fill { opacity: 1; fill: color-mix(in oklch, var(--c) 40%, var(--tile-base)) !important; }
+  & .chart .c-cell0 { fill: var(--track); opacity: 1; }
+  & .chart .c-cumdot, & .chart .c-linedot { fill: var(--card); }
+}
+
+:root:is([data-theme="neu"], [data-theme="neu-dark"]) #compact {
+  background: var(--card); border-color: transparent;
+  box-shadow: inset 2px 2px 3px var(--neu-hi), inset -2px -2px 6px var(--neu-lo);
+}
+:root:is([data-theme="neu"], [data-theme="neu-dark"], [data-family="clay"]) #compact::before { display: none; }

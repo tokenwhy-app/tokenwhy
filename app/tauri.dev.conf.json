@@ -1,0 +1,4 @@
+{
+  "build": { "devUrl": "http://localhost:1420", "beforeDevCommand": "npm run dev --prefix web" },
+  "app": { "security": { "devCsp": null } }
+}

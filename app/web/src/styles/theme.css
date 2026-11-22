@@ -1,0 +1,55 @@
+/* Copyright 2026 The tokenwhy contributors <tokenwhy@dryaides.com>
+   SPDX-License-Identifier: Apache-2.0
+   Redistributions must keep the NOTICE file and credit tokenwhy. */
+
+/* Series colours: the dataviz reference palette, validated for CVD separation on these surfaces. */
+:root, [data-preview] {
+  --plane: #f4f4f2;
+  --card: #ffffff;
+  --card-hover: #fbfbfa;
+  --sunken: #efefec;
+  --fg: #16161a;
+  --fg-2: #4d4d55;
+  --muted: #6a6a72;
+  --rule: #e6e6e2;
+  --rule-strong: #d6d6d1;
+  --accent: #256bbf;
+  --accent-soft: #e6effb;
+  --accent-ink: #ffffff;
+  --shadow: 0 1px 2px rgba(20, 20, 30, .04), 0 4px 16px -6px rgba(20, 20, 30, .08);
+  --shadow-pop: 0 2px 6px rgba(20, 20, 30, .06), 0 16px 40px -12px rgba(20, 20, 30, .22);
+  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --series-4: #eda100;
+  --series-5: #e87ba4; --series-6: #6250d6; --series-7: #008300;
+  --track: #ededea;
+  --est: #9db9e0;
+  --plane-glass: rgba(244, 244, 242, .86);
+  --glass: rgba(250, 250, 249, .74); --glass-edge: rgba(255, 255, 255, .7); --glass-sheen: rgba(255, 255, 255, .35);
+  --glass-fg: #141418; --glass-muted: #5d5d66; --glass-accent: #1f6cc8;
+  --font-mono: "Cascadia Mono", Consolas, ui-monospace, monospace;
+  --r-w: 8px;
+
+  --font-ui: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --s1: 2px; --s2: 4px; --s3: 8px; --s4: 12px; --s5: 16px; --s6: 24px; --s7: 32px; --s8: 48px;
+  --fs-xs: 11px; --fs-s: 12px; --fs-m: 13px; --fs-l: 15px; --fs-xl: 20px; --fs-kpi: 30px;
+  --r-s: 6px; --r-m: 10px; --r-l: 14px;
+  --r-ctl: var(--r-m); --ctl-h: 34px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --plane: #0f0f11; --card: #18181b; --card-hover: #1c1c20; --sunken: #121214;
+    --fg: #f0f0ee; --fg-2: #c4c4c8; --muted: #8d8d96; --rule: #26262b; --rule-strong: #34343a;
+    --accent: #4f95ea; --accent-soft: #172538; --accent-ink: #0b1322;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 20px -8px rgba(0, 0, 0, .5);
+    --shadow-pop: 0 2px 6px rgba(0, 0, 0, .4), 0 20px 48px -12px rgba(0, 0, 0, .7);
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500;
+    --series-5: #d55181; --series-6: #9085e9; --series-7: #008300;
+    --track: #232327; --est: #2f4f78;
+    --plane-glass: rgba(15, 15, 17, .84);
+    --glass: rgba(22, 22, 26, .68); --glass-edge: rgba(255, 255, 255, .12); --glass-sheen: rgba(255, 255, 255, .05);
+    --glass-fg: #f4f4f2; --glass-muted: #a4a4ad; --glass-accent: #6aa8f0;
+    color-scheme: dark;
+  }
+}

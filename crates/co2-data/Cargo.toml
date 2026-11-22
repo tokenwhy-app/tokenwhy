@@ -1,0 +1,11 @@
+[package]
+name = "tokenwhy-co2-data"
+version.workspace = true
+edition.workspace = true
+# Third-party code and data only, kept out of tokenwhy-core so tokenwhy's own code stays Apache-2.0:
+# src/ecologits is MPL-2.0 (port of EcoLogits), src/jegham.json is MIT (claude-carbon factors). See NOTICE.
+license = "MIT AND MPL-2.0"
+description = "EcoLogits port and claude-carbon factors used by tokenwhy's CO2 estimates"
+
+[dependencies]
+serde_json.workspace = true

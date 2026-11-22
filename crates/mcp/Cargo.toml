@@ -1,0 +1,10 @@
+[package]
+name = "tokenwhy-mcp"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+# Minimal MCP server over stdio (JSON-RPC 2.0, one message per line). No network, no SDK dependency.
+[dependencies]
+tokenwhy-core = { workspace = true, features = ["agent"] }
+serde_json.workspace = true

@@ -1,0 +1,234 @@
+tokenwhy
+Copyright 2026 The tokenwhy contributors
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+
+Some parsing rules and finding ideas come from codeburn (MIT, AgentSeal),
+github.com/getagentseal/codeburn v0.9.27, rewritten in Rust. Rules ported:
+- parser.ts: streaming dedup (last usage, first timestamp per message id), global message-id dedup
+  across resumed and forked sessions, recursive subagent file discovery, human prompt filters
+- context-tree.ts: compaction boundary metadata
+- models.ts calculateCost: the cost formula only (no price table, no price fetching)
+- bash-utils.ts: shell command splitting and prefix stripping
+- optimize.ts: re-read and MCP coverage finding ideas
+
+Provider formats taken from codeburn v0.9.27 (commit 7ecc87f), rewritten in Rust:
+- providers/antigravity.ts and docs/providers/antigravity.md: gen_metadata / steps protobuf field numbers,
+  placeholder model table, tool names (crates/core/src/providers/agy)
+- providers/codex.ts and docs/providers/codex.md: rollout records, token_count delta and fork dedup key, tool
+  names (crates/core/src/providers/codex)
+- providers/opencode-file-parser.ts, sqlite-session-parser.ts and docs/providers/opencode.md: JSON storage and
+  SQLite layouts (crates/core/src/providers/opencode)
+
+No code, price data, network code or presentation is copied.
+
+----
+
+MIT License
+
+Copyright (c) 2026 AgentSeal
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+----
+
+CO2 estimates use the emission factors of claude-carbon (MIT, Gaetan Wittebolle),
+github.com/gwittebolle/claude-carbon, data/factors.json read 2026-10-22: grams CO2e per million
+tokens per model family, after Jegham et al. 2025 (arXiv 2505.09598), cache reads at 0.08 of input,
+grid 0.287 kgCO2e/kWh. Ported as crates/co2-data/src/jegham.json, keyed by model id (the "Jegham" CO2
+method).
+tokenwhy also reads its sessions-history.tsv, when present, for days older than its own history.
+No code, network code or presentation is copied.
+
+MIT License
+
+Copyright (c) 2026 Gaetan Wittebolle
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+----
+
+Default data folders of Codex (CODEX_HOME, sessions/, archived_sessions/), opencode (OPENCODE_DATA_DIR,
+XDG_DATA_HOME) and Antigravity (ANTIGRAVITY_DATA_DIR and the ~/.gemini/antigravity* folders) follow ccusage
+(MIT, ryoppippi), github.com/ryoppippi/ccusage, rust/adapters/{codex,opencode,antigravity}, read 2026-10-22.
+No code is copied.
+
+MIT License
+
+Copyright (c) 2025 ryoppippi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+----
+
+The default CO2 method is a port of EcoLogits 0.11.3 (MPL-2.0, GenAI Impact), github.com/mlco2/ecologits,
+commit d586c3566da37ecd2c35878d77ae6e7de1a0719c (2026-10-23):
+- crates/co2-data/src/ecologits/models.json: ecologits/data/models.json, unmodified.
+- crates/co2-data/src/ecologits/mod.rs: Rust port of ecologits/impacts/llm.py (formula and constants),
+  ecologits/tracers/utils.py (provider PUE, WUE and zone) and the US and Swedish grid GWP and WUE values of
+  ecologits/data/electricity_mixes.json. Changes: GWP, energy and water only; no time to first token and no measured
+  latency, so impacts are per output token; the user may replace the grid intensity.
+These two files are covered by the Mozilla Public License 2.0 (text in crates/co2-data/src/ecologits/LICENSE,
+also https://mozilla.org/MPL/2.0/); their source form is the files themselves, shipped with tokenwhy's source.
+The rest of tokenwhy is not covered by MPL-2.0.
+Tests check the port against the spec vectors of EcoLogits.js (MPL-2.0), github.com/mlco2/ecologits.js,
+spec 0.2.0 (read 2026-10-23); no code is copied from it.
+
+----
+
+SQLite (public domain, sqlite.org) is compiled into the binary through rusqlite (MIT) with its bundled build.
+
+----
+
+Wrapped cards embed Bricolage Grotesque (SIL Open Font License 1.1), github.com/ateliertriay/bricolage,
+from google/fonts ofl/bricolagegrotesque: two static instances (weight 430 and 800), Latin subset, renamed
+"twcard" (crates/wrapped/assets, made by subset_font.py). Licence text:
+
+Copyright 2022 The Bricolage Grotesque Project Authors (https://github.com/ateliertriay/bricolage)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+Brand assets (tokenwhy/app/ui/brand): the wordmark in the splash image is set in Unbounded and the tagline in
+Bricolage Grotesque, both SIL Open Font License 1.1. The font files are not shipped, only images of the text;
+the licence text of Unbounded is kept in tokenwhy/app/ui/brand/OFL-Unbounded.txt.
+
+Third-party Rust crates linked into the binaries, with their licence texts: THIRD_PARTY_LICENSES.txt
+(generated by cargo-about from Cargo.lock; regenerate with `cargo about generate --all-features about.hbs -o THIRD_PARTY_LICENSES.txt`).

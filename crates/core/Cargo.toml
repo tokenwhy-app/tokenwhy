@@ -1,0 +1,31 @@
+[package]
+name = "tokenwhy-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = []
+watch = ["dep:notify"]
+# Proof builds only: TOKENWHY_NOW_MS pins the clock.
+pinned-clock = []
+# SQLite sources (Antigravity, opencode v2): bundled C SQLite, read from a copy only.
+sqlite = ["dep:rusqlite"]
+# CO2e estimates (EcoLogits and Jegham methods); without it no CO2 field is filled and the interface hides CO2.
+co2 = ["dep:tokenwhy-co2-data"]
+# Briefs for agents (`report --for-agent`, MCP tools): findings grouped and ranked by $/week, with fix texts.
+agent = []
+# Claude subscription limits used, from the `/usage` reading Claude Code caches in its global config.
+plan = []
+# Claude Code's stats-cache.json: estimated history for days whose transcripts are gone.
+claude-stats = []
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+memchr.workspace = true
+chrono.workspace = true
+postcard.workspace = true
+notify = { workspace = true, optional = true }
+tokenwhy-co2-data = { path = "../co2-data", optional = true }
+rusqlite = { version = "0.40.2", features = ["bundled"], optional = true }

@@ -1,0 +1,41 @@
+[package]
+name = "tokenwhy-app"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tokenwhy-core = { workspace = true, features = ["watch", "sqlite", "agent"] }
+tauri = { version = "2", features = ["tray-icon", "macos-private-api"] }
+window-vibrancy = "0.6"
+tauri-plugin-autostart = "2"
+tauri-plugin-single-instance = "2"
+tokenwhy-mcp.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokenwhy-wrapped = { workspace = true, optional = true }
+tokenwhy-card = { workspace = true, optional = true }
+chrono = { workspace = true, optional = true }
+tokenwhy-share = { workspace = true, optional = true }
+
+[features]
+default = ["wrapped", "co2", "plan", "claude-stats"]
+# CO2e estimates and their settings; without it the interface shows no CO2.
+co2 = ["tokenwhy-core/co2", "tokenwhy-wrapped?/co2"]
+# Claude subscription limits used, from Claude Code's cached /usage reading.
+plan = ["tokenwhy-core/plan"]
+# Estimated history from Claude Code's stats-cache.json for days whose transcripts are gone.
+claude-stats = ["tokenwhy-core/claude-stats"]
+# Wrapped modal; the app builds and behaves the same without it.
+wrapped = ["dep:tokenwhy-wrapped", "dep:tokenwhy-card", "dep:chrono"]
+# Opt-in weekly report and its Settings panel; the only feature that links an HTTP client. Off until the Worker is
+# live (design D2).
+share = ["dep:tokenwhy-share", "tokenwhy-share/net"]
+
+# Same versions as wry's, so no new build: WebView2 memory usage target level (design-idle 5.3).
+[target.'cfg(windows)'.dependencies]
+webview2-com = "0.39"
+windows-core = "0.62"

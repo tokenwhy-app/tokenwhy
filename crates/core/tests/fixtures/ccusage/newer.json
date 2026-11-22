@@ -1,0 +1,9 @@
+{
+  "daily": [
+    {
+      "date": "2026-10-20", "agent": "claude",
+      "inputTokens": 500, "outputTokens": 100, "cacheCreationTokens": 0, "cacheReadTokens": 0,
+      "totalCost": 3.0, "modelsUsed": ["claude-opus-4-6"]
+    }
+  ]
+}

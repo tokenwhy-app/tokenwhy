@@ -1,0 +1,121 @@
+{
+ "version": 1,
+ "provider": "google",
+ "source_url": "https://ai.google.dev/gemini-api/docs/pricing",
+ "source_checked": "2026-10-23",
+ "note": "USD per million tokens, paid tier Standard, text input. Longest model-id prefix wins. Output includes thinking tokens (the provider adds them to output). Cache read = the page's context caching rate; implicit caching has no write charge, so cache_write rates equal input; caching storage per hour is not modelled. Gemini 3.1 Pro and 2.5 Pro: prompts over 200000 tokens use the long_context rates. Gemini 3.8 and 3.6 Flash rates are those valid through 2026-12-31 (the page lists doubled rates from 2027-01-01). Gemini 4 Argon is left out until its model id is seen in a transcript.",
+ "rates": [
+  {
+   "prefix": "gemini-3.8-flash",
+   "input": 0.75,
+   "cache_write_5m": 0.75,
+   "cache_write_1h": 0.75,
+   "cache_read": 0.075,
+   "output": 3.75,
+   "web_search": 0,
+   "checked": "2026-10-23"
+  },
+  {
+   "prefix": "gemini-3.6-flash",
+   "input": 0.75,
+   "cache_write_5m": 0.75,
+   "cache_write_1h": 0.75,
+   "cache_read": 0.075,
+   "output": 3.75,
+   "web_search": 0,
+   "checked": "2026-10-23"
+  },
+  {
+   "prefix": "gemini-3.5-flash-lite",
+   "input": 0.3,
+   "cache_write_5m": 0.3,
+   "cache_write_1h": 0.3,
+   "cache_read": 0.03,
+   "output": 2.5,
+   "web_search": 0,
+   "checked": "2026-10-23"
+  },
+  {
+   "prefix": "gemini-3.1-flash-lite",
+   "input": 0.25,
+   "cache_write_5m": 0.25,
+   "cache_write_1h": 0.25,
+   "cache_read": 0.025,
+   "output": 1.5,
+   "web_search": 0,
+   "checked": "2026-10-23"
+  },
+  {
+   "prefix": "gemini-3.1-pro",
+   "input": 2,
+   "cache_write_5m": 2,
+   "cache_write_1h": 2,
+   "cache_read": 0.2,
+   "output": 12,
+   "web_search": 0,
+   "long_context_threshold": 200000,
+   "long_context": {
+    "prefix": "gemini-3.1-pro",
+    "input": 4,
+    "cache_write_5m": 4,
+    "cache_write_1h": 4,
+    "cache_read": 0.4,
+    "output": 18,
+    "web_search": 0,
+    "checked": "2026-10-23"
+   },
+   "checked": "2026-10-23"
+  },
+  {
+   "prefix": "gemini-3-flash",
+   "input": 0.5,
+   "cache_write_5m": 0.5,
+   "cache_write_1h": 0.5,
+   "cache_read": 0.05,
+   "output": 3,
+   "web_search": 0,
+   "checked": "2026-10-23"
+  },
+  {
+   "prefix": "gemini-2.5-pro",
+   "input": 1.25,
+   "cache_write_5m": 1.25,
+   "cache_write_1h": 1.25,
+   "cache_read": 0.125,
+   "output": 10,
+   "web_search": 0,
+   "long_context_threshold": 200000,
+   "long_context": {
+    "prefix": "gemini-2.5-pro",
+    "input": 2.5,
+    "cache_write_5m": 2.5,
+    "cache_write_1h": 2.5,
+    "cache_read": 0.25,
+    "output": 15,
+    "web_search": 0,
+    "checked": "2026-10-23"
+   },
+   "checked": "2026-10-23"
+  },
+  {
+   "prefix": "gemini-2.5-flash",
+   "input": 0.3,
+   "cache_write_5m": 0.3,
+   "cache_write_1h": 0.3,
+   "cache_read": 0.03,
+   "output": 2.5,
+   "web_search": 0,
+   "checked": "2026-10-23"
+  },
+  {
+   "prefix": "gemini-2.5-flash-lite",
+   "input": 0.1,
+   "cache_write_5m": 0.1,
+   "cache_write_1h": 0.1,
+   "cache_read": 0.01,
+   "output": 0.4,
+   "web_search": 0,
+   "checked": "2026-10-23"
+  }
+ ]
+}

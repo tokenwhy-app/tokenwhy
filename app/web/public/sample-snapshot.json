@@ -1,0 +1,395 @@
+{
+  "schema": 2,
+  "generated_ms": 1792569600000,
+  "window": {
+    "from_ms": 1791360000000,
+    "to_ms": 1792569600000
+  },
+  "anonymised": false,
+  "progress": 1.0,
+  "accounts": [
+    { "id": "claude-code:5f1c0a9e2b7d4c31", "label": "Perso", "sessions": 9 },
+    { "id": "root:9a0b3c4d5e6f7081", "label": "Pro", "sessions": 4 },
+    { "id": "unattributed", "label": "Unattributed", "sessions": 2 }
+  ],
+  "providers": [
+    {
+      "id": "claude-code",
+      "label": "Claude Code",
+      "roots": 1,
+      "files": 2140,
+      "caps": {
+        "turns": "full",
+        "cache_read": "full",
+        "cache_write": "full",
+        "tool_outputs": "full",
+        "skills": "full",
+        "startup": "full",
+        "memory": "full",
+        "subagents": "full",
+        "compactions": "full",
+        "mcp": "full",
+        "cost": "table"
+      }
+    },
+    {
+      "id": "codex",
+      "label": "Codex",
+      "roots": 1,
+      "files": 38,
+      "caps": {
+        "turns": "full",
+        "cache_read": "full",
+        "cache_write": "none",
+        "tool_outputs": "partial",
+        "skills": "partial",
+        "startup": "none",
+        "memory": "partial",
+        "subagents": "partial",
+        "compactions": "partial",
+        "mcp": "none",
+        "cost": "table"
+      },
+      "skipped": [
+        {
+          "reason": "compressed",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "id": "agy",
+      "label": "Antigravity",
+      "roots": 4,
+      "files": 12,
+      "caps": {
+        "turns": "full",
+        "cache_read": "full",
+        "cache_write": "none",
+        "tool_outputs": "partial",
+        "skills": "partial",
+        "startup": "none",
+        "memory": "none",
+        "subagents": "partial",
+        "compactions": "none",
+        "mcp": "none",
+        "cost": "estimate"
+      },
+      "skipped": [
+        {
+          "reason": "encrypted .pb conversations (Antigravity IDE)",
+          "count": 73
+        }
+      ]
+    },
+    {
+      "id": "import:amp",
+      "label": "Amp (ccusage import)",
+      "roots": 0,
+      "files": 0,
+      "caps": {
+        "turns": "none",
+        "cache_read": "none",
+        "cache_write": "none",
+        "tool_outputs": "none",
+        "skills": "none",
+        "startup": "none",
+        "memory": "none",
+        "subagents": "none",
+        "compactions": "none",
+        "mcp": "none",
+        "cost": "stored"
+      },
+      "imported": true
+    }
+  ],
+  "live": {
+    "today": {
+      "fresh_tokens": 6100000,
+      "cache_read_tokens": 48200000,
+      "cost_usd": {
+        "value": 41.2
+      },
+      "sessions": 3,
+      "agents": 11
+    },
+    "sessions": [
+      {
+        "provider": "claude-code",
+        "project": "mycompanion",
+        "session": "c841382d",
+        "ctx_tokens": 312000,
+        "turns": 184,
+        "cost_usd": {
+          "value": 12.4
+        },
+        "agents_running": 2,
+        "compactions": 1,
+        "ctx_growth_since_boundary": 241000
+      }
+    ]
+  },
+  "findings": [
+    {
+      "provider": "claude-code",
+      "rule": "R8",
+      "project": "mycompanion",
+      "line": "mycompanion: subagents 73 % of cost; 104 agents, median startup 21k. Brief by path, cheaper model for reads.",
+      "usd_saved_per_week": { "value": 31.5, "est": true },
+      "usd_saved_last_7d": { "value": 52.4, "est": true },
+      "tokens_saved_per_week": {
+        "value": 2100000,
+        "est": true
+      },
+      "co2_g_saved_per_week": {
+        "value": 164,
+        "est": true
+      }
+    },
+    {
+      "rule": "R2",
+      "project": "mycompanion",
+      "line": "MEMORY.md 15.7 KB (3.9k tok every session and agent). Keep one short line per file.",
+      "usd_saved_per_week": { "value": 6.15, "est": true },
+      "usd_saved_last_7d": { "value": 6.4, "est": true },
+      "tokens_saved_per_week": {
+        "value": 410000
+      }
+    },
+    {
+      "provider": "codex",
+      "rule": "R11",
+      "project": null,
+      "line": "File reads: 39 % of tool output. sed -n 22 %. Read by symbol or by line range.",
+      "usd_saved_per_week": { "value": 5.7, "est": true },
+      "usd_saved_last_7d": { "value": 2.1, "est": true },
+      "tokens_saved_per_week": {
+        "value": 380000,
+        "est": true
+      }
+    }
+  ],
+  "startup": [
+    {
+      "provider": "claude-code",
+      "project": "mycompanion",
+      "sessions": 41,
+      "median": 50900,
+      "p90": 53100,
+      "min": 47200,
+      "max": 55800,
+      "ratio": 0.27,
+      "parts": [
+        {
+          "kind": "system-prompt",
+          "name": "system",
+          "tokens": {
+            "value": 14200
+          }
+        },
+        {
+          "kind": "builtin-tools",
+          "name": "tools",
+          "tokens": {
+            "value": 17800
+          }
+        },
+        {
+          "kind": "deferred-tools",
+          "name": "supabase",
+          "tokens": {
+            "value": 900
+          }
+        },
+        {
+          "kind": "skill-listing",
+          "name": "cloudflare:cloudflare",
+          "tokens": {
+            "value": 310
+          }
+        },
+        {
+          "kind": "user-instructions",
+          "name": "~/.claude/CLAUDE.md",
+          "tokens": {
+            "value": 1900
+          }
+        },
+        {
+          "kind": "project-instructions",
+          "name": "CLAUDE.md",
+          "tokens": {
+            "value": 2600
+          }
+        },
+        {
+          "kind": "memory",
+          "name": "memory/MEMORY.md",
+          "tokens": {
+            "value": 3900
+          }
+        }
+      ],
+      "unattributed": {
+        "value": 9290
+      }
+    }
+  ],
+  "skills": [
+    {
+      "provider": "claude-code",
+      "skill": "mc-modding",
+      "listing_tokens_median": {
+        "value": 120
+      },
+      "activations": 9,
+      "body_tokens_median": {
+        "value": 18500
+      },
+      "carried_cost_usd": {
+        "value": 6.8
+      },
+      "sessions_loaded": 7,
+      "sessions_listed": 212,
+      "attributed_turns": 340,
+      "attributed_cost_usd": {
+        "value": 21.5
+      }
+    }
+  ],
+  "memory": [
+    {
+      "kind": "memory",
+      "path": "memory/MEMORY.md",
+      "bytes": 15700,
+      "tokens": {
+        "value": 3900
+      },
+      "carried_cost_usd": {
+        "value": 9.1
+      },
+      "on_demand_reads": 14,
+      "duplicate_lines": 0
+    }
+  ],
+  "subagents": [
+    {
+      "provider": "claude-code",
+      "project": "mycompanion",
+      "agent_type": "chore",
+      "model": "claude-opus-4-5",
+      "agents": 104,
+      "cost_usd": {
+        "value": 212.0
+      },
+      "median_cost_usd": {
+        "value": 1.4
+      },
+      "cost_share": 0.73,
+      "fresh_share": 0.61,
+      "startup_share": 0.38
+    }
+  ],
+  "compactions": [
+    {
+      "provider": "claude-code",
+      "project": "vacances",
+      "session": "2d8ebf2e",
+      "ts_ms": 1791900000000,
+      "pre_tokens": 200000,
+      "post_tokens": 9000,
+      "first_after_ctx": 61000,
+      "cost_per_turn_before": {
+        "value": 0.21
+      },
+      "cost_per_turn_after": {
+        "value": 0.09
+      },
+      "rebuild_tokens": {
+        "value": 12400,
+        "est": true
+      },
+      "carry_ratio": 1.2,
+      "fresh_restart_cost_usd": {
+        "value": 3.1
+      }
+    }
+  ],
+  "tools": [
+    {
+      "provider": "codex",
+      "category": "read-file",
+      "detail": "sed",
+      "project": null,
+      "calls": 1840,
+      "first_tokens": {
+        "value": 1210000,
+        "est": true
+      },
+      "carried_tokens": {
+        "value": 48300000,
+        "est": true
+      },
+      "share": 0.22,
+      "median_chars": 2100,
+      "p95_chars": 14800,
+      "over_25k": 12,
+      "persisted": 0
+    }
+  ],
+  "unpriced_models": [
+    "gemini-3.7-flash"
+  ],
+  "week": {
+    "fresh_tokens": {
+      "this": 1840000,
+      "last": 2010000,
+      "delta_pct": -8.46
+    },
+    "cache_read_tokens": {
+      "this": 61200000,
+      "last": 70400000,
+      "delta_pct": -13.07
+    },
+    "cost_usd": {
+      "this": 48.6,
+      "last": 57.2,
+      "delta_pct": -15.03
+    },
+    "sessions": {
+      "this": 23,
+      "last": 27,
+      "delta_pct": -14.81
+    },
+    "agents": {
+      "this": 41,
+      "last": 38,
+      "delta_pct": 7.89
+    },
+    "agent_cost_usd": {
+      "this": 9.1,
+      "last": 8.4,
+      "delta_pct": 8.33
+    },
+    "output_tokens": {
+      "this": 612000,
+      "last": 655000,
+      "delta_pct": -6.56
+    },
+    "edits": {
+      "this": 214,
+      "last": 231,
+      "delta_pct": -7.36
+    },
+    "active_hours": {
+      "this": 31,
+      "last": 34,
+      "delta_pct": -8.82
+    },
+    "co2_g": {
+      "this": 1489,
+      "last": 1627,
+      "delta_pct": -8.48
+    }
+  }
+}

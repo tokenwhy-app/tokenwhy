@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "provider": "claude-code",
+  "source": "claude-carbon data/factors.json (github.com/gwittebolle/claude-carbon, MIT), read 2026-10-22: Jegham et al. 2025, arXiv 2505.09598, AWS PUE 1.14, grid 0.287 kgCO2e/kWh. Order-of-magnitude estimates.",
+  "cache_read_factor": 0.08,
+  "factors": [
+    { "prefix": "claude-fable", "input": 156, "output": 3304 },
+    { "prefix": "claude-mythos", "input": 156, "output": 3304 },
+    { "prefix": "claude-opus", "input": 78, "output": 1652 },
+    { "prefix": "claude-3-opus", "input": 78, "output": 1652 },
+    { "prefix": "claude-sonnet", "input": 39, "output": 826 },
+    { "prefix": "claude-3-5-sonnet", "input": 39, "output": 826 },
+    { "prefix": "claude-3-7-sonnet", "input": 39, "output": 826 },
+    { "prefix": "claude-haiku", "input": 10, "output": 207 },
+    { "prefix": "claude-3-haiku", "input": 10, "output": 207 },
+    { "prefix": "claude-3-5-haiku", "input": 10, "output": 207 }
+  ]
+}

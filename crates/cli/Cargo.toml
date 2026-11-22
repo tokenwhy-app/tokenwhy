@@ -1,0 +1,38 @@
+[package]
+name = "tokenwhy"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "tokenwhy"
+path = "src/main.rs"
+
+[features]
+default = ["sqlite", "co2", "agent", "mcp", "share", "plan", "claude-stats"]
+# CO2e estimates; without it the output carries no CO2 figure.
+co2 = ["tokenwhy-core/co2", "tokenwhy-wrapped?/co2"]
+sqlite = ["tokenwhy-core/sqlite"]
+# Claude subscription limits used, from Claude Code's cached /usage reading.
+plan = ["tokenwhy-core/plan"]
+# Estimated history from Claude Code's stats-cache.json for days whose transcripts are gone.
+claude-stats = ["tokenwhy-core/claude-stats"]
+pinned-clock = ["tokenwhy-core/pinned-clock"]
+# `report --for-agent`: fixes ranked by $/week with the instruction to apply.
+agent = ["tokenwhy-core/agent", "dep:serde_json"]
+# `tokenwhy mcp`: read-only MCP server over stdio.
+mcp = ["agent", "dep:tokenwhy-mcp"]
+# `tokenwhy wrapped`: year cards as text, JSON or PNG.
+# `tokenwhy share preview|export`: the opt-in weekly summary, built offline; never sends.
+share = ["dep:tokenwhy-share"]
+wrapped = ["dep:tokenwhy-wrapped", "dep:tokenwhy-card", "dep:serde_json", "dep:chrono"]
+
+[dependencies]
+tokenwhy-core.workspace = true
+lexopt.workspace = true
+tokenwhy-wrapped = { workspace = true, optional = true }
+tokenwhy-card = { workspace = true, optional = true }
+tokenwhy-mcp = { workspace = true, optional = true }
+tokenwhy-share = { workspace = true, optional = true }
+serde_json = { workspace = true, optional = true }
+chrono = { workspace = true, optional = true }

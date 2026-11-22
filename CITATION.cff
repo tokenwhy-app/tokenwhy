@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use tokenwhy or build on it, please cite it as below."
+title: "tokenwhy"
+abstract: "Where your agent tokens went, and why."
+type: software
+authors:
+  - name: "The tokenwhy contributors"
+    email: "tokenwhy@dryaides.com"
+license: Apache-2.0
+version: 0.1.0
