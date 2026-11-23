@@ -39,3 +39,4 @@ share = ["dep:tokenwhy-share", "tokenwhy-share/net"]
 [target.'cfg(windows)'.dependencies]
 webview2-com = "0.39"
 windows-core = "0.62"
+windows = { version = "0.62", features = ["ApplicationModel", "ApplicationModel_Activation", "Foundation", "Win32_Storage_Packaging_Appx"] }

@@ -9,6 +9,7 @@ mod ipc;
 mod log;
 mod mcp;
 mod mem;
+mod package;
 mod settings;
 #[cfg(feature = "share")]
 mod share;
@@ -129,7 +130,11 @@ fn main() {
             tray::build(&handle, &loaded)?;
             #[cfg(feature = "share")]
             share::start(handle.clone());
-            shell::open_initial(&handle, std::env::args().any(|a| a == "--autostart"));
+            shell::open_initial(
+                &handle,
+                std::env::args().any(|a| a == "--autostart") || package::launched_by_startup_task(),
+            );
+            shell::sync_startup_task(&handle);
             log::watch_main_thread(handle);
             Ok(())
         })

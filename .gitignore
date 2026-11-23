@@ -6,3 +6,4 @@ node_modules/
 Thumbs.db
 /app/ui-dist/
 .impeccable/
+/dist/
