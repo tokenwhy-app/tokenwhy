@@ -107,6 +107,18 @@ pub fn open_initial(app: &AppHandle, at_login: bool) {
     });
 }
 
+pub fn sync_startup_task(app: &AppHandle) {
+    if !crate::package::packaged() {
+        return;
+    }
+    let app = app.clone();
+    std::thread::spawn(move || {
+        if let Some(on) = crate::package::enabled().filter(|&on| on != current(&app).core.autostart) {
+            let _ = change(&app, "autostart", json!(on));
+        }
+    });
+}
+
 pub fn ui(app: &AppHandle, op: &'static str, f: impl FnOnce(&AppHandle) + Send + 'static) {
     let a = app.clone();
     let _ = app.run_on_main_thread(move || {
@@ -143,12 +155,22 @@ pub fn change(app: &AppHandle, key: &str, value: Value) -> Result<(), String> {
     if old.core.autostart != new.core.autostart
         && std::env::var_os("TOKENWHY_NO_AUTOSTART").is_none()
     {
-        let al = app.autolaunch();
-        let _ = if new.core.autostart {
-            al.enable()
+        if crate::package::packaged() {
+            let want = new.core.autostart;
+            let app = app.clone();
+            std::thread::spawn(move || {
+                if let Some(got) = crate::package::set(want).filter(|&got| got != want) {
+                    let _ = change(&app, "autostart", json!(got));
+                }
+            });
         } else {
-            al.disable()
-        };
+            let al = app.autolaunch();
+            let _ = if new.core.autostart {
+                al.enable()
+            } else {
+                al.disable()
+            };
+        }
     }
     if old.core.window_days != new.core.window_days
         || old.project != new.project

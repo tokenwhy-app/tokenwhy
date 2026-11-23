@@ -145,6 +145,9 @@ pub async fn theme_icon(app: AppHandle, variant: String) -> Result<(), String> {
 
 #[tauri::command]
 pub fn exe_path() -> Result<String, String> {
+    if crate::package::packaged() {
+        return Ok("tokenwhy".into());
+    }
     std::env::current_exe()
         .map(|p| p.display().to_string())
         .map_err(|e| e.to_string())

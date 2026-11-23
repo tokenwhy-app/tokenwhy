@@ -24,9 +24,11 @@ jobs:
       - run: cargo tauri build
         working-directory: app
       - run: cargo build --release -p tokenwhy
+      - run: python packaging/msix/build.py
       - uses: softprops/action-gh-release@v2
         with:
           draft: true
           files: |
             target/release/bundle/nsis/*-setup.exe
             target/release/tokenwhy.exe
+            dist/*.msix

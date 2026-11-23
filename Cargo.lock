@@ -4339,6 +4339,7 @@ dependencies = [
  "tokenwhy-wrapped",
  "webview2-com",
  "window-vibrancy 0.6.0",
+ "windows",
  "windows-core",
 ]
 

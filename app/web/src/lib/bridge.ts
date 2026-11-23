@@ -106,7 +106,7 @@ export function setThemeIcon(variant: string): Promise<void> { return invoke ? i
 export async function mcpSetupLine(): Promise<string> {
   if (!invoke) throw new Error('MCP setup needs the app.');
   const exe = await invoke<string>('exe_path');
-  return `claude mcp add tokenwhy -- "${exe}" mcp`;
+  return `claude mcp add --scope user tokenwhy -- "${exe}" mcp`;
 }
 export function agentBrief(): Promise<string> { return invoke ? invoke<string>('agent_brief') : Promise.reject(new Error('The brief needs the app.')); }
 export type SpendScale = 'day' | 'week' | 'month';
